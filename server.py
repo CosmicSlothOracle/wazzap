@@ -10,9 +10,10 @@ class Server:
 
     async def client_messages(self, websocket):
         try:
-            now = datetime.datetime.now().strftime("%d/%m%Y %H:%M")
             async for message in websocket:
-                print(f"{websocket.remote_address} - {now}: {message}")
+                now = datetime.datetime.now().strftime("%d/%m%Y %H:%M")
+                formatted = f"{websocket.remote_address} - {now}: {message}"
+                print(formatted)
                 for client in list(self.clients): 
                     try:
                         await client.send(formatted)
